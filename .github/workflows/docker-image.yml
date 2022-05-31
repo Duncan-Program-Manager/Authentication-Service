@@ -1,0 +1,29 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+      with:
+        ref: main
+    - name: Set up JDK    
+      uses: actions/setup-java@v1 
+      with:        
+        java-version: 1.11
+    - name: Build with Maven      
+      run: mvn package
+    - name: Docker build
+      run: docker build . --tag registry.vimuens.nl/dpm-authentication:1.0.1
+    - name: Publish to Docker Registry
+      run: docker push registry.vimuens.nl/dpm-authentication:1.0.1

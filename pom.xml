@@ -8,11 +8,11 @@
 		<version>2.6.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.4Energy</groupId>
-	<artifactId>BasicSpringAPI</artifactId>
+	<groupId>com.2nowabout</groupId>
+	<artifactId>Authentication-API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>BasicSpringAPI</name>
-	<description>Basic Spring API</description>
+	<name>Authentication-API</name>
+	<description>Authentication-API</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2021.0.0</spring-cloud.version>

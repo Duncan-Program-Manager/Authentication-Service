@@ -24,6 +24,6 @@ jobs:
     - name: Build with Maven      
       run: mvn package
     - name: Docker build
-      run: docker build . --tag registry.vimuens.nl/dpm-authentication:1.0.1
+      run: docker build . --tag registry.vimuens.nl/dpm-authentication:1.0.2
     - name: Publish to Docker Registry
-      run: docker push registry.vimuens.nl/dpm-authentication:1.0.1
+      run: docker push registry.vimuens.nl/dpm-authentication:1.0.2

@@ -4,12 +4,12 @@ import com.dpm.authentication.datamodels.User;
 import com.dpm.authentication.dto.UserInfoDTO;
 import com.dpm.authentication.logic.PasswordHasher;
 import com.dpm.authentication.repository.UserRepository;
-import org.bouncycastle.i18n.MissingEntryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.rmi.AlreadyBoundException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class AuthService {
@@ -52,6 +52,7 @@ public class AuthService {
             throw new AlreadyBoundException("Username already exists");
         }
         User user = new User();
+        user.setId(UUID.randomUUID());
         user.setEmail(userInfoDTO.getEmail());
         user.setUsername(userInfoDTO.getUsername());
         user.setPassword(hasher.getEncoder().encode(userInfoDTO.getPassword()));

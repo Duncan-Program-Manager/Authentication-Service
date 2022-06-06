@@ -54,7 +54,7 @@ public class PasswordHasher {
                 .setIssuedAt(now)
                 .setSubject(user.getEmail())
                 .setIssuer(user.getUsername())
-                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(6).toInstant()))
+                .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(60).toInstant()))
                 .signWith(signatureAlgorithm, signingKey);
 
         //Builds the JWT and serializes it to a compact, URL-safe string

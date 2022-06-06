@@ -3,9 +3,9 @@ package com.dpm.authentication.controller;
 import com.dpm.authentication.dto.UserInfoDTO;
 import com.dpm.authentication.endpoint.UserEndpoints;
 import com.dpm.authentication.service.UserService;
-import org.apache.catalina.User;
-import org.apache.commons.lang.NotImplementedException;
+import jdk.jshell.spi.ExecutionControl;
 import org.apache.tomcat.websocket.AuthenticationException;
+import org.hibernate.cfg.NotYetImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +43,6 @@ public class UserController {
     @PostMapping(value = UserEndpoints.DELETEUSER)
     public ResponseEntity<?> deleteUser()
     {
-        throw new NotImplementedException();
+        throw new NotYetImplementedException();
     }
 }

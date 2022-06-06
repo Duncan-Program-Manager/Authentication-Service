@@ -5,10 +5,10 @@ spring:
     host: "localhost"
     port: 5672
   datasource:
-    url: "jdbc:mysql://82.73.212.90:3307/dpm"
+    url: "jdbc:mysql://82.73.212.90:3307/dpm_auth"
     username: "2nowabout"
     password: "SecurePassword1!"
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka
+  jpa:
+    hibernate:
+      ddl-auto: update
+

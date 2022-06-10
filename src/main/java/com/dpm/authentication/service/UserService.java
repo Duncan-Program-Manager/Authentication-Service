@@ -8,6 +8,7 @@ import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -31,12 +32,25 @@ public class UserService {
         User user = userFromDatabase.get();
         if(hasher.getEncoder().matches(userInfoDTO.getPassword(), user.getPassword()))
         {
-            user.setUsername(userInfoDTO.getUsername());
             user.setEmail(userInfoDTO.getEmail());
             user.setPassword(hasher.getEncoder().encode(userInfoDTO.getPassword()));
             userRepository.save(user);
         }
         throw new AuthenticationException("Match of email and password not found");
+    }
+
+    public void deleteUser(String email)
+    {
+        if(userRepository.existsByEmail(email)) {
+            userRepository.deleteByEmail(email);
+        }
+        else{
+            try {
+                throw new AccountNotFoundException();
+            } catch (AccountNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

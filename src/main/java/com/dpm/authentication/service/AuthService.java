@@ -3,10 +3,14 @@ package com.dpm.authentication.service;
 import com.dpm.authentication.datamodels.User;
 import com.dpm.authentication.dto.UserInfoDTO;
 import com.dpm.authentication.logic.PasswordHasher;
+import com.dpm.authentication.rabbitmq.RabbitMQSender;
 import com.dpm.authentication.repository.UserRepository;
+import org.json.simple.JSONObject;
+import org.springframework.amqp.core.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.rmi.AlreadyBoundException;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,12 +20,14 @@ public class AuthService {
 
     private UserRepository userRepository;
     private PasswordHasher hasher;
+    private RabbitMQSender rabbitMQSender;
 
     @Autowired
-    public AuthService(UserRepository userRepository, PasswordHasher hasher)
+    public AuthService(UserRepository userRepository, PasswordHasher hasher, RabbitMQSender rabbitMQSender)
     {
         this.userRepository = userRepository;
         this.hasher = hasher;
+        this.rabbitMQSender = rabbitMQSender;
     }
 
     public String loginUser(String email, String password)
@@ -54,9 +60,16 @@ public class AuthService {
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setEmail(userInfoDTO.getEmail());
-        user.setUsername(userInfoDTO.getUsername());
         user.setPassword(hasher.getEncoder().encode(userInfoDTO.getPassword()));
         userRepository.save(user);
+        JSONObject fullJson = new JSONObject();
+        JSONObject userInfo = new JSONObject();
+        fullJson.put("method", "Update User");
+        userInfo.put("uuid", user.getId());
+        userInfo.put("username", userInfoDTO.getUsername());
+        userInfo.put("email", user.getEmail());
+        fullJson.put("data", userInfo);
+        rabbitMQSender.send(new Message(fullJson.toJSONString().getBytes(StandardCharsets.UTF_8)));
     }
 
     public boolean verifyToken(String token)

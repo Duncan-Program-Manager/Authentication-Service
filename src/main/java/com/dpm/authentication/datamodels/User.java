@@ -10,7 +10,6 @@ import java.util.UUID;
 public class User {
     private UUID id;
     private String email;
-    private String username;
     private String password;
 
     @Id
@@ -31,16 +30,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Basic
-    @Column(name = "username", nullable = false)
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Basic

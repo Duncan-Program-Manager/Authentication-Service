@@ -36,6 +36,7 @@ public class PasswordHasher {
         // to add the role in the claims
         //claims.put("role",user.getRole().toString());
         claims.put("id",user.getId().toString());
+        claims.put("email", user.getEmail());
 
 
         //The JWT signature algorithm we will be using to sign the token
@@ -53,7 +54,7 @@ public class PasswordHasher {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setSubject(user.getEmail())
-                .setIssuer(user.getUsername())
+                .setIssuer(user.getEmail())
                 .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(60).toInstant()))
                 .signWith(signatureAlgorithm, signingKey);
 

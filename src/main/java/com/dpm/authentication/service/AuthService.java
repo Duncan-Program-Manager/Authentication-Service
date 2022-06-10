@@ -53,10 +53,6 @@ public class AuthService {
         {
             throw new AlreadyBoundException("Email already exists");
         }
-        if(userRepository.existsByUsername(userInfoDTO.getUsername()))
-        {
-            throw new AlreadyBoundException("Username already exists");
-        }
         User user = new User();
         user.setId(UUID.randomUUID());
         user.setEmail(userInfoDTO.getEmail());

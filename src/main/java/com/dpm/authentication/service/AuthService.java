@@ -61,7 +61,7 @@ public class AuthService {
         JSONObject fullJson = new JSONObject();
         JSONObject userInfo = new JSONObject();
         fullJson.put("method", "Update User");
-        userInfo.put("uuid", user.getId());
+        userInfo.put("uuid", user.getId().toString());
         userInfo.put("username", userInfoDTO.getUsername());
         userInfo.put("email", user.getEmail());
         fullJson.put("data", userInfo);

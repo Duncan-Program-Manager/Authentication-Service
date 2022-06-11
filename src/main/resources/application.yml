@@ -12,5 +12,5 @@ spring:
     password: "SecurePassword1!"
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 

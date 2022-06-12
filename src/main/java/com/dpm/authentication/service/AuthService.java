@@ -60,7 +60,7 @@ public class AuthService {
         userRepository.save(user);
         JSONObject fullJson = new JSONObject();
         JSONObject userInfo = new JSONObject();
-        fullJson.put("method", "Update User");
+        fullJson.put("method", "newUser");
         userInfo.put("uuid", user.getId().toString());
         userInfo.put("username", userInfoDTO.getUsername());
         userInfo.put("email", user.getEmail());

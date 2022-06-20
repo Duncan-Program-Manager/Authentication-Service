@@ -7,19 +7,20 @@ import com.dpm.authentication.repository.UserRepository;
 import org.apache.tomcat.websocket.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.util.Optional;
 
 @Service
 public class UserService {
+
     private UserRepository userRepository;
     private PasswordHasher hasher;
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordHasher hasher)
     {
-        this.userRepository = userRepository;
         this.hasher = hasher;
     }
 
@@ -39,6 +40,7 @@ public class UserService {
         throw new AuthenticationException("Match of email and password not found");
     }
 
+    @Transactional
     public void deleteUser(String email)
     {
         if(userRepository.existsByEmail(email)) {

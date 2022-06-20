@@ -36,6 +36,8 @@ public class RabbitMQReciever implements RabbitListenerConfigurer {
         if(json.get("method").equals("Delete User"))
         {
             JSONObject userInfo = (JSONObject) json.get("data");
+            System.out.println(userInfo);
+            System.out.println(userInfo.get("email").toString());
             userService.deleteUser(userInfo.get("email").toString());
         }
     }

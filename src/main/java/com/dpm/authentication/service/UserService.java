@@ -21,6 +21,7 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository, PasswordHasher hasher)
     {
+        this.userRepository = userRepository;
         this.hasher = hasher;
     }
 
